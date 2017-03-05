@@ -1,1 +1,1 @@
-web: node pp/backend/server.js
+web: npm install && npm start
