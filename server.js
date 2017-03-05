@@ -10,6 +10,7 @@ let app = express();
 
 app.use(bodyParser.json());
 
+// Obtained from http://stackoverflow.com/questions/18310394/no-access-control-allow-origin-node-apache-port-issue
 // Add headers
 app.use(function (req, res, next) {
 
