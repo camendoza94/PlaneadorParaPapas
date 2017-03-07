@@ -3,7 +3,7 @@ const Item = require('../models/item')
 
 module.exports = function(app) {
 
-  //Users 
+  //Users
 
   app.get('/users', function(req, res) {
     User.find(function(err, users) {
@@ -136,6 +136,7 @@ module.exports = function(app) {
 
     res.json(item);
   });
+  //Podrías identar el código para que sea más legible y evitar confusiones raras
 });
   });
 }
