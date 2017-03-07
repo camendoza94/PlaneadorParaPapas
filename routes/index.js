@@ -4,7 +4,11 @@ const Item = require('../models/item')
 module.exports = function(app) {
 
     //Users
-
+    /*
+      EN general me parece que esta bien,
+      pero mas adelante, si agregan nuevas rutas,
+      seria bueno hacerlo un poco mas modular.
+    */
     app.get('/users', function(req, res) {
         User.find(function(err, users) {
             if (err)
