@@ -3,139 +3,142 @@ const Item = require('../models/item')
 
 module.exports = function(app) {
 
-  //Users 
+    //Users
+    /*
+      EN general me parece que esta bien,
+      pero mas adelante, si agregan nuevas rutas,
+      seria bueno hacerlo un poco mas modular.
+    */
+    app.get('/users', function(req, res) {
+        User.find(function(err, users) {
+            if (err)
+                res.send(err);
 
-  app.get('/users', function(req, res) {
-    User.find(function(err, users) {
-      if (err)
-        res.send(err);
-
-      res.json(users);
+            res.json(users);
+        });
     });
-  });
 
-  app.get('/users/:id', function(req, res) {
-    User.findById(req.params.id, function(err, user) {
-      if (err)
-        res.send(err);
+    app.get('/users/:id', function(req, res) {
+        User.findById(req.params.id, function(err, user) {
+            if (err)
+                res.send(err);
 
-      res.json(user);
+            res.json(user);
+        });
     });
-  });
 
-  app.post('/users', function(req, res) {
-    var user = new User();
+    app.post('/users', function(req, res) {
+        var user = new User();
 
-    user.username = req.body.username;
-    user.name = req.body.name;
-    user.password = req.body.password;
-    user.location = req.location;
+        user.username = req.body.username;
+        user.name = req.body.name;
+        user.password = req.body.password;
+        user.location = req.location;
 
-    user.save(function(err) {
-      if (err)
-        return res.send(err);
+        user.save(function(err) {
+            if (err)
+                return res.send(err);
 
-      res.json(user);
+            res.json(user);
+        });
     });
-  });
 
-  app.delete('/users/:id', function(req, res) {
+    app.delete('/users/:id', function(req, res) {
 
-    User.findByIdAndRemove(req.params.id, function(err) {
-      if (err)
-        res.send(err);
+        User.findByIdAndRemove(req.params.id, function(err) {
+            if (err)
+                res.send(err);
 
-      res.json({ message: 'User removed successfully!' });
+            res.json({message: 'User removed successfully!'});
+        });
     });
-  });
 
-  app.put('/users/:id', function(req, res) {
-    User.findById(req.params.id, function(err, user) {
-      if (err)
-        res.send(err);
+    app.put('/users/:id', function(req, res) {
+        User.findById(req.params.id, function(err, user) {
+            if (err)
+                res.send(err);
 
-      user.username = req.body.username || user.username;
-      user.name = req.body.name || user.name;
-      user.password = req.body.password || user.password;
-      user.location = req.location || user.location;
-      ;
+            user.username = req.body.username || user.username;
+            user.name = req.body.name || user.name;
+            user.password = req.body.password || user.password;
+            user.location = req.location || user.location;;
 
-      user.save(function(err) {
-        if (err)
-          return res.send(err);
+            user.save(function(err) {
+                if (err)
+                    return res.send(err);
 
-        res.json(user);
-      });
+                res.json(user);
+            });
+        });
     });
-  });
 
-  //Items
+    //Items
 
-  app.get('/users/:id/items', function(req, res) {
-    Item.find(function(err, items) {
-      if (err)
-        res.send(err);
+    app.get('/users/:id/items', function(req, res) {
+        Item.find(function(err, items) {
+            if (err)
+                res.send(err);
 
-      res.json(items);
+            res.json(items);
+        });
     });
-  });
 
-  app.get('/users/:id/items/:id', function(req, res) {
-    Item.findById(req.params.id, function(err, item) {
-      if (err)
-        res.send(err);
+    app.get('/users/:id/items/:id', function(req, res) {
+        Item.findById(req.params.id, function(err, item) {
+            if (err)
+                res.send(err);
 
-      res.json(item);
+            res.json(item);
+        });
     });
-  });
 
-  app.post('/users/:id/items', function(req, res) {
-    var item = new Item();
+    app.post('/users/:id/items', function(req, res) {
+        var item = new Item();
 
-    item.name = req.body.name;
-    item.dueDay = req.body.dueDay;
-    item.category = req.body.category;
-    item.type = req.body.type;
-    item.reminderDate = req.body.reminderDate;
-    item.amount = req.body.amount;
+        item.name = req.body.name;
+        item.dueDay = req.body.dueDay;
+        item.category = req.body.category;
+        item.type = req.body.type;
+        item.reminderDate = req.body.reminderDate;
+        item.amount = req.body.amount;
 
-    item.save(function(err) {
-      if (err)
-        res.send(err);
+        item.save(function(err) {
+            if (err)
+                res.send(err);
 
-      res.json(item);
+            res.json(item);
+        });
     });
-  });
 
-  app.delete('/users/:id/items/:id', function(req, res) {
+    app.delete('/users/:id/items/:id', function(req, res) {
 
-    Item.findByIdAndRemove(req.params.id, function(err) {
-      if (err)
-        res.send(err);
+        Item.findByIdAndRemove(req.params.id, function(err) {
+            if (err)
+                res.send(err);
 
-      res.json({ message: 'Item removed successfully!' });
+            res.json({message: 'Item removed successfully!'});
+        });
     });
-  });
 
-  app.put('/users/:id/items/:id', function(req, res) {
-    Item.findById(req.params.id, function(err, item) {
-      if (err)
-        res.send(err);
-  //Revisar si funciona así
-  item.name = req.body.name || item.name;
-  item.dueDay = req.body.dueDay || item.dueDay;
-  item.category = req.body.category || item.category;
-  item.type = req.body.type || item.type;
-  item.reminderDate = req.body.reminderDate || item.reminderDate;
-  item.amount = req.body.amount || item.amount;
-  ;
+    app.put('/users/:id/items/:id', function(req, res) {
+        Item.findById(req.params.id, function(err, item) {
+            if (err)
+                res.send(err);
 
-  item.save(function(err) {
-    if (err)
-      res.send(err);
+            //Revisar si funciona así
+            item.name = req.body.name || item.name;
+            item.dueDay = req.body.dueDay || item.dueDay;
+            item.category = req.body.category || item.category;
+            item.type = req.body.type || item.type;
+            item.reminderDate = req.body.reminderDate || item.reminderDate;
+            item.amount = req.body.amount || item.amount;;
 
-    res.json(item);
-  });
-});
-  });
+            item.save(function(err) {
+                if (err)
+                    res.send(err);
+
+                res.json(item);
+            });
+        });
+    });
 }
