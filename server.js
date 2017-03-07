@@ -10,6 +10,7 @@ let app = express();
 
 app.use(bodyParser.json());
 
+//Me parece super que incluyas las fuentes en el código
 // Obtained from http://stackoverflow.com/questions/18310394/no-access-control-allow-origin-node-apache-port-issue
 // Add headers
 app.use(function (req, res, next) {
