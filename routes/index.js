@@ -1,3 +1,4 @@
+//Cambiar delete and update por métodos que no usen el find para mayor desempeño.
 "use strict";
 const User = require('../models/user')
 const Item = require('../models/item')
@@ -71,8 +72,8 @@ module.exports = function(app) {
 
     //Items
 
-    app.get('/users/:id/items', function(req, res) {
-        User.findById(req.params.id).populate('items').exec(function(err, items) {
+    app.get('/users/:userid/items', function(req, res) {
+        Item.find({ creator: req.params.userid }, function(err, items) {
             if (err)
                 res.send(err);
 
@@ -80,8 +81,8 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/users/:id/items/:id', function(req, res) {
-        Item.findById(req.params.id, function(err, item) {
+    app.get('/users/:userid/items/:itemid', function(req, res) {
+        Item.findById(req.params.itemid, function(err, item) {
             if (err)
                 res.send(err);
 
@@ -89,7 +90,7 @@ module.exports = function(app) {
         });
     });
 
-    app.post('/users/:id/items', function(req, res) {
+    app.post('/users/:userid/items', function(req, res) {
         var item = new Item();
 
         item.name = req.body.name;
@@ -98,6 +99,7 @@ module.exports = function(app) {
         item.type = req.body.type;
         item.reminderDate = req.body.reminderDate;
         item.amount = req.body.amount;
+        item.creator = req.params.userid;
 
         item.save(function(err) {
             if (err)
@@ -107,9 +109,9 @@ module.exports = function(app) {
         });
     });
 
-    app.delete('/users/:id/items/:id', function(req, res) {
+    app.delete('/users/:userid/items/:itemid', function(req, res) {
 
-        Item.findByIdAndRemove(req.params.id, function(err) {
+        Item.findByIdAndRemove(req.params.itemid, function(err) {
             if (err)
                 res.send(err);
 
@@ -117,8 +119,8 @@ module.exports = function(app) {
         });
     });
 
-    app.put('/users/:id/items/:id', function(req, res) {
-        Item.findById(req.params.id, function(err, item) {
+    app.put('/users/:userid/items/:itemid', function(req, res) {
+        Item.findById(req.params.itemid, function(err, item) {
             if (err)
                 res.send(err);
 
@@ -127,7 +129,7 @@ module.exports = function(app) {
             item.category = req.body.category || item.category;
             item.type = req.body.type || item.type;
             item.reminderDate = req.body.reminderDate || item.reminderDate;
-            item.amount = req.body.amount || item.amount;;
+            item.amount = req.body.amount || item.amount;
 
             item.save(function(err) {
                 if (err)
