@@ -72,7 +72,7 @@ module.exports = function(app) {
     //Items
 
     app.get('/users/:id/items', function(req, res) {
-        Item.find(function(err, items) {
+        User.findById(req.params.id).populate('items').exec(function(err, items) {
             if (err)
                 res.send(err);
 
@@ -122,7 +122,6 @@ module.exports = function(app) {
             if (err)
                 res.send(err);
 
-            //Revisar si funciona así
             item.name = req.body.name || item.name;
             item.dueDay = req.body.dueDay || item.dueDay;
             item.category = req.body.category || item.category;
