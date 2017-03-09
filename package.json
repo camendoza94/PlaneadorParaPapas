@@ -17,6 +17,10 @@
     "start": "node server.js"
   },
   "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/camendoza94/PlaneadorParaPapas.git"
+  },
   "author": "",
   "license": "MIT"
 }

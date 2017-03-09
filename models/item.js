@@ -1,3 +1,4 @@
+"use strict";
 const mongoose = require('../db');
 var Schema = mongoose.Schema;
 

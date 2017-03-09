@@ -1,4 +1,5 @@
 // Modules
+"use strict";
 const bodyParser = require('body-parser');
 const express = require('express');
 var mongoose = require('mongoose');
