@@ -2,6 +2,7 @@
 "use strict";
 const User = require('../models/user')
 const Item = require('../models/item')
+const ObjectID = require('mongodb').ObjectID;
 
 module.exports = function(app) {
 
@@ -99,7 +100,7 @@ module.exports = function(app) {
         item.type = req.body.type;
         item.reminderDate = req.body.reminderDate;
         item.amount = req.body.amount;
-        item.creator = req.params.userid;
+        item.creator = new ObjectID(req.params.userid);
 
         item.save(function(err) {
             if (err)
