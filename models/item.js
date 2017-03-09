@@ -1,5 +1,6 @@
 "use strict";
 const mongoose = require('../db');
+var ObjectId = mongoose.Schema.Types.ObjectId;
 var Schema = mongoose.Schema;
 
 var itemSchema = new Schema({
@@ -9,7 +10,7 @@ var itemSchema = new Schema({
   type: String,
   reminderDate: Date,
   amount: Number,
-  creator: { type: Number, ref: 'User' }
+  creator: { type: ObjectID, ref: 'User' }
 });
 
 var Item = mongoose.model('Item', itemSchema);
