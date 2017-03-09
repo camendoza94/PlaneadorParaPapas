@@ -1,6 +1,6 @@
 "use strict";
 const mongoose = require('../db');
-var ObjectId = mongoose.Schema.Types.ObjectId;
+var ObjectID = mongoose.Schema.Types.ObjectId;
 var Schema = mongoose.Schema;
 
 var itemSchema = new Schema({
